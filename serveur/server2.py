@@ -1,8 +1,5 @@
 import serial
-import asyncio
 
-# from pymodbus.datastore import ModbusSequentialDataBlock
-# from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
 
 
 # from pymodbus.server import StartAsyncSerialServer
@@ -27,8 +24,8 @@ from pymodbus.server import (
 
 # context = ModbusServerContext(slaves=store, single=True)
 
-portSerialServer = serial.Serial("/dev/ttySERVER", 9600)
-print(portSerialServer)
+# portSerialServer = serial.Serial('/dev/ttySERVER', 9600)
+# print(portSerialServer)
 
 server = StartSerialServer(method='rtu', port=portSerialServer.port, baudrate=portSerialServer.baudrate)
 server.start()
