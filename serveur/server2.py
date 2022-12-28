@@ -27,7 +27,7 @@ from pymodbus.server import (
 # portSerialServer = serial.Serial('/dev/ttySERVER', 9600)
 # print(portSerialServer)
 
-server = StartSerialServer(method='rtu', port=portSerialServer.port, baudrate=portSerialServer.baudrate)
+server = StartSerialServer(method='rtu', port='/dev/ttySERVER', baudrate=9600)
 server.start()
 print(server)
 
