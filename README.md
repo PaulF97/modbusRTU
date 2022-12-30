@@ -38,6 +38,26 @@ Then we have to lunch the server. To make sure the server has been correctly lau
 ![image](https://user-images.githubusercontent.com/65350546/210055080-e7338223-54c4-4c42-9cbb-f36d3a4ba22c.png)
 
 
+Once the server is launched, we can run the client.
+In the client, we have initialized the slave ID at one, and it will be passed in the parameters of the write functions. Note that this is a optional parameter.
+
+The code will ask the user to input a string and a integer that will be written to the data and coil register.
+
+
+![image](https://user-images.githubusercontent.com/65350546/210055535-68e3c2e2-fe71-4dcd-bb70-c8c2a4617cb5.png)
+
+The string will be passed to write_registers() function (function code 0x10)
+The integer will be passed to the write_coils function (function code 0x0F)
+
+
+In the terminal of the server, we can see two frames respecting the RTU Application Data Unit Format.
+
+
+![image](https://user-images.githubusercontent.com/65350546/210055931-8e15bcaf-c190-4735-bda3-84b4fe7db0f0.png)
+
+The first frame corresponds to the String "test Modbus". The slave ID is 0x01 witch has been initialized, and the function code is 0x10. The two last bytes are the checksum bytes.
+
+Same for the second frame, we can see that the slave ID is 0x01 and the function code 0x0F.
 
 
 
