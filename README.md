@@ -59,6 +59,10 @@ The first frame corresponds to the String "test Modbus". The slave ID is 0x01 wi
 
 Same for the second frame, we can see that the slave ID is 0x01 and the function code 0x0F.
 
+To check that the frame is properly send, the frame can be decoded on this link : 
+
+https://rapidscada.net/modbus/
+
 
 
 
