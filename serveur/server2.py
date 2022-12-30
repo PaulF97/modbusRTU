@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------- #
 import asyncio
 from pymodbus.server import StartSerialServer
-
+import threading
 from pymodbus.device import ModbusDeviceIdentification
 from pymodbus.datastore import ModbusSequentialDataBlock, ModbusSparseDataBlock
 from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
@@ -22,8 +22,7 @@ log = logging.getLogger()
 log.setLevel(logging.DEBUG)
 
 
-def run_server():
-
+def data():
 # data store of the server
     store = ModbusSlaveContext(
         co=ModbusSequentialDataBlock(0, [0]*100), # coils register
@@ -33,9 +32,15 @@ def run_server():
         )
 
     context = ModbusServerContext(slaves=store, single=True)
-
+    return context
+def run_server(context1):
     print("before") 
-    StartSerialServer(method='rtu',port = '/dev/ttySERVER', baudrate=9600) # function runs in infinit loop..
+    StartSerialServer(context=context1, method='rtu',port = '/dev/ttySERVER', baudrate=9600) # function runs in infinit loop..
 
 if __name__ == "__main__":
-    run_server()
+
+    context = data()
+    run = threading.Thread(target=run_server(context), args=(10,))
+    run.start()
+    run.join()
+    # run_server()

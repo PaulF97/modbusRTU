@@ -17,5 +17,5 @@ while True:
     # write to slave slave id initialized at 0x01 for communication operations
     toSend = input("enter a string to write in holding register : ")  # enter message to send
     toSendCoils = input("enter a integer to write in coils: ")  # enter message to send
-    client.write_registers(40001,toSend.encode(),0x01)  # write to address 40001 of holding register
-    client.write_coils(15, int(toSendCoils.encode()),0x01) #write  to address 15 coil register
+    client.write_registers(40001, toSend.encode(),0x01)  # write to address 40001 of holding register
+    client.write_coils(15, int(toSendCoils),0x01) #write  to address 15 coil register
