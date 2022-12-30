@@ -33,14 +33,16 @@ def data():
 
     context = ModbusServerContext(slaves=store, single=True)
     return context
+
+
 def run_server(context1):
-    print("before") 
+    print("before")
+    print("Number of threads running : " , threading.active_count()) 
     StartSerialServer(context=context1, method='rtu',port = '/dev/ttySERVER', baudrate=9600) # function runs in infinit loop..
 
 if __name__ == "__main__":
 
     context = data()
-    run = threading.Thread(target=run_server(context), args=(10,))
+    run = threading.Thread(target=run_server, args=(context,))
+    
     run.start()
-    run.join()
-    # run_server()
