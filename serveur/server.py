@@ -8,7 +8,7 @@ from pymodbus.device import ModbusDeviceIdentification
 from pymodbus.datastore import ModbusSequentialDataBlock
 from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
 
-from pymodbus.transaction import ModbusRtuFramer
+from pymodbus.transaction import ModbusRtuFramer, ModbusAsciiFramer, ModbusSocketFramer
 # --------------------------------------------------------------------------- #
 # configure the service logging
 # --------------------------------------------------------------------------- #
@@ -27,10 +27,9 @@ def data():
     store = ModbusSlaveContext(
         co=ModbusSequentialDataBlock(0, [0]*100), # coils register
         di=ModbusSequentialDataBlock(0, [0]*100), # discrete input
-        ir=ModbusSequentialDataBlock(0, [15]*100), # input register
-        hr=ModbusSequentialDataBlock(0, [16]*100) # holding
+        ir=ModbusSequentialDataBlock(0, [0]*100), # input register
+        hr=ModbusSequentialDataBlock(0, [0]*100) # holding
         )
-
     context = ModbusServerContext(slaves=store, single=True)
     return context
 
@@ -38,7 +37,7 @@ def data():
 def run_server(context1):
     print("before")
     print("Number of threads running : " , threading.active_count()) 
-    StartSerialServer(context=context1, framer=ModbusRtuFramer, method='rtu',port = '/dev/ttySERVER', baudrate=9600) # function runs in infinit loop..
+    StartSerialServer(context = context1, framer=ModbusAsciiFramer, method='rtu',port = '/dev/ttySERVER', baudrate=9600) # function runs in infinit loop..
 
 if __name__ == "__main__":
 
