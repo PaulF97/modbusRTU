@@ -6,7 +6,7 @@ from pymodbus.transaction import ModbusRtuFramer
 
 
 # declaration of client and connexion
-client = ModbusSerialClient(method='rtu', baudrate=9600,bytesize = 8,port='/dev/ttyCLIENT', timeout=1)
+client = ModbusSerialClient(framer=ModbusRtuFramer, baudrate=9600,bytesize = 8,port='/dev/ttyCLIENT', timeout=1)
 client.connect()
 print(client)
 
@@ -18,4 +18,4 @@ while True:
     toSend = input("enter a string to write in holding register : ")  # enter message to send
     toSendCoils = input("enter a integer to write in coils: ")  # enter message to send
     client.write_registers(40002, toSend.encode(),0x01)  # write to address 40002 of holding register
-    client.write_coils(15, int(toSendCoils),0x01) #write  to address 15 coil register
+    client.write_coil(15, toSendCoils.encode(),0x01) #write  to address 15 coil register

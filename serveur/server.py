@@ -1,5 +1,3 @@
-
-# --------------------------------------------------------------------------- #
 # import the various server implementations
 # --------------------------------------------------------------------------- #
 from pymodbus.server import StartSerialServer
@@ -37,14 +35,24 @@ def data():
 
 
 def run_server(context1):
+    identity1 = ModbusDeviceIdentification()
+    identity1.VendorName = 'Pymodbus'
+    identity1.ProductCode = 'PM'
+    identity1.VendorUrl = 'https://github.com/paulhfisher/modbusRTU.git'
+    identity1.ProductName = 'Pymodbus Server'
+    identity1.ModelName = 'Pymodbus Server'
+    identity1.MajorMinorRevision = '1.5'
+
     print("before")
     print("Number of threads running : " , threading.active_count()) 
-    StartSerialServer(context = context1, method='rtu',port = '/dev/ttySERVER', baudrate=9600) # function runs in infinit loop..
+    StartSerialServer(identity = identity1, context = context1, method='rtu',port = '/dev/ttySERVER', baudrate=9600) # function runs in infinit loop..
+
+
+
 
 if __name__ == "__main__":
 
-    context = data()
 
+    context = data()
     run = threading.Thread(target=run_server, args=(context,))
-    
     run.start()
