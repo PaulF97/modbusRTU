@@ -55,7 +55,17 @@ In the terminal of the server, we can see two frames respecting the RTU Applicat
 
 ![image](https://user-images.githubusercontent.com/65350546/210055931-8e15bcaf-c190-4735-bda3-84b4fe7db0f0.png)
 
-The first frame corresponds to the String "test Modbus". The slave ID is 0x01 witch has been initialized, and the function code is 0x10. The two last bytes are the checksum bytes.
+
+The frame has the following organisation : 
+
+id slave : 1 byte
+function code 2 bytes
+start address : 2 bytes
+size : 2 bytes
+data : 8 bytes
+CRC : 2 bytes
+
+
 
 Same for the second frame, we can see that the slave ID is 0x01 and the function code 0x0F.
 
