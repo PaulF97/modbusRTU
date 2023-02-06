@@ -11,11 +11,10 @@ client.connect()
 print(client)
 
 
-
 while True:
 
     # write to slave slave id initialized at 0x01 for communication operations
     toSend = input("enter a string to write in holding register : ")  # enter message to send
     toSendCoils = input("enter a integer to write in coils: ")  # enter message to send
-    client.write_registers(40002, toSend.encode(),0x01)  # write to address 40002 of holding register
-    client.write_coil(15, toSendCoils.encode(),0x01) #write  to address 15 coil register
+    client.write_registers(49849, toSend.encode(),0x01)  # write to address 49849 of holding register
+    client.write_coils(15, toSendCoils.encode(),0x01) #write  to address 15 coil register
