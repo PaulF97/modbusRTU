@@ -2,13 +2,10 @@
 # --------------------------------------------------------------------------- #
 from pymodbus.server import StartSerialServer
 import threading
-from pymodbus.device import ModbusDeviceIdentification
-import os
 from pymodbus.datastore import ModbusSequentialDataBlock
 from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
-# from pymodbus.transaction import ModbusRtuFramer
-
-
+from pymodbus.transaction import ModbusRtuFramer
+from pymodbus.device import ModbusDeviceIdentification
 
 # --------------------------------------------------------------------------- #
 # configure the service logging
@@ -16,7 +13,8 @@ from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
 
 import logging
 
-FORMAT = ('%(message)s')
+FORMAT = ('%(asctime)-15s %(threadName)-15s'
+          ' %(levelname)-8s %(module)-15s:%(lineno)-8s %(message)-15s')
 logging.basicConfig(format=FORMAT)
 log = logging.getLogger()
 log.setLevel(logging.DEBUG)
@@ -34,7 +32,6 @@ def data():
     context = ModbusServerContext(slaves=store, single=True)
     return context
 
-
 def run_server(context1):
     identity1 = ModbusDeviceIdentification()
     identity1.VendorName = 'Pymodbus'
@@ -44,13 +41,11 @@ def run_server(context1):
     identity1.ModelName = 'Pymodbus Server'
     identity1.MajorMinorRevision = '1.5'
 
-    
     print("Number of threads running : " , threading.active_count())
-    # os.system("sudo cat /dev/ttySERVER") 
-    StartSerialServer(context = context1, identity = identity1, port = '/dev/ttySERVER', baudrate=9600) # function runs in infinit loop..
+    
+    StartSerialServer(context = context1, identity = identity1, method='rtu', port = '/dev/ttySERVER', baudrate=9600) # function runs in infinit loop..
 
 if __name__ == "__main__":
-    
     context = data()
     run = threading.Thread(target=run_server, args=(context,))
     run.start()
